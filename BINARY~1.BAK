@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct TreeNode {
+    int data;
+    struct TreeNode* left;
+    struct TreeNode* right;
+};
+struct TreeNode* createNode(int data) {
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    if (newNode) {
+        newNode->data = data;
+        newNode->left = NULL;
+        newNode->right = NULL;
+    }
+    return newNode;
+}
+struct TreeNode* insertNode(struct TreeNode* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    }
+    if (data < root->data) {
+        root->left = insertNode(root->left, data);
+    } else if (data > root->data) {
+        root->right = insertNode(root->right, data);
+    }
+    return root;
+}
+
+void preOrderTraversal(struct TreeNode* root) {
+    if (root) {
+        printf("%d ", root->data);
+        preOrderTraversal(root->left);
+        preOrderTraversal(root->right);
+    }
+}
+void postOrderTraversal(struct TreeNode* root) {
+    if (root) {
+        postOrderTraversal(root->left);
+        postOrderTraversal(root->right);
+        printf("%d ", root->data);
+    }
+}
+int main() {
+    struct TreeNode* root = NULL;
+    int n, data, i;
+    printf("Enter the number of elements in the sequence: ");
+    scanf("%d", &n);
+    printf("Enter the sequence of numbers:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &data);
+        root = insertNode(root, data);
+    }
+
+    printf("Pre-order traversal: ");
+    preOrderTraversal(root);
+    printf("\n");
+    printf("Post-order traversal: ");
+    postOrderTraversal(root);
+    printf("\n");
+    return 0;
+}

@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <conio.h>
+#define MAX_VERTICES 10
+int graph[MAX_VERTICES][MAX_VERTICES];
+int visited[MAX_VERTICES];
+int numVertices;
+void initializeGraph() {
+    int i, j;
+    for (i = 0; i < MAX_VERTICES; i++) {
+        visited[i] = 0;
+        for (j = 0; j < MAX_VERTICES; j++) {
+            graph[i][j] = 0;
+        }}}
+void addEdge(int start, int end) {
+    graph[start][end] = 1;
+    graph[end][start] = 1;
+}
+void depthFirstSearch(int vertex) {
+    int i;
+    visited[vertex] = 1;
+    printf("Visited vertex: %d\n", vertex);
+
+    for (i = 0; i < numVertices; i++) {
+        if (graph[vertex][i] && !visited[i]) {
+            depthFirstSearch(i);
+        }}}
+int main() {
+    clrscr();
+    printf("Enter the number of vertices: ");
+    scanf("%d", &numVertices);
+    initializeGraph();
+    int numEdges, i, start, end;
+    printf("Enter the number of edges: ");
+    scanf("%d", &numEdges);
+    for (i = 0; i < numEdges; i++) {
+        printf("Enter edge (start end): ");
+        scanf("%d %d", &start, &end);
+        addEdge(start, end);
+    }
+    int startVertex;
+    printf("Enter the starting vertex for DFS: ");
+    scanf("%d", &startVertex);
+    printf("Depth-First Search starting from vertex %d:\n", startVertex);
+    depthFirstSearch(startVertex);
+    getch();
+    return 0;
+} 

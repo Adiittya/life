@@ -78,20 +78,35 @@ struct PolyNode* addPoly(struct PolyNode* poly1, struct PolyNode* poly2) {
     return result;
 }
 
+// Function to take input for a polynomial
+struct PolyNode* inputPoly() {
+    struct PolyNode* poly = NULL;
+    int n, coeff, exp;
+
+    printf("Enter the number of terms in the polynomial: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter coefficient and exponent for term %d: ", i + 1);
+        scanf("%d %d", &coeff, &exp);
+        poly = insertNode(poly, coeff, exp);
+    }
+
+    return poly;
+}
+
 int main() {
     struct PolyNode* poly1 = NULL;
     struct PolyNode* poly2 = NULL;
     struct PolyNode* sum = NULL;
 
-    // Inserting terms for the first polynomial (3x^3 + 5x^2 + 6)
-    poly1 = insertNode(poly1, 3, 3);
-    poly1 = insertNode(poly1, 5, 2);
-    poly1 = insertNode(poly1, 6, 0);
+    // Taking input for the first polynomial
+    printf("Input for the first polynomial:\n");
+    poly1 = inputPoly();
 
-    // Inserting terms for the second polynomial (2x^2 + 3x + 1)
-    poly2 = insertNode(poly2, 2, 2);
-    poly2 = insertNode(poly2, 3, 1);
-    poly2 = insertNode(poly2, 1, 0);
+    // Taking input for the second polynomial
+    printf("Input for the second polynomial:\n");
+    poly2 = inputPoly();
 
     // Display the two polynomials
     printf("Polynomial 1: ");
